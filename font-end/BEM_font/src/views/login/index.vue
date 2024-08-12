@@ -26,7 +26,7 @@
                             <!-- 登录界面footer -->
                             <div class="card-footer-wrapped">
                                 <div class="forgot-password-wrapped">
-                                    <span class="forgot-password">
+                                    <span class="forgot-password" @click="openForget">
                                         Forgot Password?
                                     </span>
                                 </div>
@@ -68,12 +68,14 @@
         </el-footer>
       </el-container>
     </div>
+    <forget_Password ref="forgetPasswordRef"></forget_Password>
   </template>
   
 
 <script setup lang="ts">
     import { ref } from 'vue'
     import { reactive } from 'vue'
+    import forget_Password from '@/components/forget_Password.vue'
 
     const activeName = ref('first')  //默认为登录
 
@@ -93,6 +95,13 @@
         password: string,
         repassword ? : string,
     }
+
+    //打开忘记密码弹窗函数
+    const openForget = () => {
+        console.log("Forget Password")
+        forgetPasswordRef.value.open()
+    }
+    const forgetPasswordRef = ref(null)
 
 </script>
 
@@ -268,7 +277,7 @@ html,body{
     border: 2px dashed #d299ff;
     --el-button-hover-bg-color: #2a005e;
 }
-
+ 
 /* -----------------------------------------mian_注册界面 */
 .Account-Form-reg,.Password-Form-reg,.ConfirmPassword-Form-reg {
     height: 52px;
@@ -299,8 +308,6 @@ html,body{
     border: 2px dashed #d299ff;
     --el-button-hover-bg-color: #2a005e;
 }
-
-
 
 /* ---------------------------------------------footer */
 .footer-wrapped {
