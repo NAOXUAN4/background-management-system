@@ -99,7 +99,7 @@
     //打开忘记密码弹窗函数
     const openForget = () => {
         console.log("Forget Password")
-        forgetPasswordRef.value.open()
+        forgetPasswordRef.value.openFD1()
     }
     const forgetPasswordRef = ref(null)
 

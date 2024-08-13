@@ -1,12 +1,14 @@
 <template>
+
+    <!-- 验证身份 账号+邮箱 -->
    <el-dialog v-model="state.forgetDialog1"width="600">
         
         <!-- forgetPassword界面body -->
-        <el-form :model="Forgetform" label-width="auto" style="max-width: 2560px">
-            <el-form-item class="forget-Account-Form">
+        <el-form :model="Forgetform" label-width="auto" style="max-width: 2560px" :rules="rules">
+            <el-form-item class="forget-Account-Form" prop="Account">
                 <el-input v-model="Forgetform.account"  placeholder="Account" class="forget-input-Account"/>
             </el-form-item>
-            <el-form-item class="forget-Email-Form">
+            <el-form-item class="forget-Email-Form" prop="Email">
                 <el-input v-model="Forgetform.email"  placeholder="Email" class="forget-input-Email"/>
             </el-form-item>
         </el-form>
@@ -14,13 +16,42 @@
         <!-- forgetPassword界面footer -->
         <div class="for-card-footer-wrapped">
             <div class="cancel-button-wrapped">
-                <el-button typ0e="primary" class="cancel-button">Cancel</el-button>
+                <el-button typ0e="primary" class="cancel-button" @click="state.forgetDialog1 = false">Cancel</el-button>
             </div>
             <div class="confirm-button-wrapped">
-                <el-button typ0e="primary" class="confirm-button">Confirm</el-button>
+                <el-button typ0e="primary" class="confirm-button" @click="FunctionOpenFD2">Next Step</el-button>
             </div>
         </div>
         </el-dialog>
+
+
+
+        <!-- 修改密码 -->
+   <el-dialog v-model="state.forgetDialog2"width="600">
+        
+        <!-- changePassword界面body -->
+        <el-form :model="Changeform" label-width="auto" style="max-width: 2560px" :rules="rules">
+            <el-form-item class="change-Pwd-Form" prop="Password">
+                <el-input v-model="Changeform.Password"  placeholder="New Password" class="change-input-Pwd"/>
+            </el-form-item>
+            <el-form-item class="change-PwdConfirm-Form" prop="rePassword">
+                <el-input v-model="Changeform.rePassword" placeholder="Confirm Password" class="change-input-PwdConfirm"/>
+            </el-form-item>
+        </el-form>
+
+        <!-- changePassword界面footer -->
+        <div class="for-card-footer-wrapped">
+            <div class="cancel-button-wrapped">
+                <el-button typ0e="primary" class="cancel-button" @click="state.forgetDialog2 = false">Cancel</el-button>
+            </div>
+            <div class="confirm-button-wrapped">
+                <el-button typ0e="primary" class="confirm-button" @click="FunctionOpenFD2">Confirm</el-button>
+            </div>
+        </div>
+        </el-dialog>
+
+
+
 </template>
 
 <script lang="ts" setup>
@@ -31,25 +62,60 @@ const Forgetform : formData = reactive({
     email:'',
 })
 
+const Changeform : formData = reactive({
+    account: null,
+    Password:'',
+    rePassword:'',
+})
+
 //表单对象接口
 interface formData  {
     account :number;
-    email :string
+    email ? :string;
+    Password ? :string;
+    rePassword ? :string;
 }
+
+//表单规则
+const rules = reactive({
+    Account: [
+        { required: true, message: 'Please input account', trigger: 'blur'},
+    ],
+    Email: [
+        { required: true, message: 'Please input email', trigger: 'blur' },    
+    ],
+    Password: [
+        { required: true, message: 'Please input Password', trigger: 'blur'},
+    ],
+    rePassword: [
+        { required: true, message: 'Please confirm you Password', trigger: 'blur' },    
+    ]
+    
+})
  
 //弹窗函数封装（默认关闭）
 const state = reactive({
     forgetDialog1: false,
+    forgetDialog2: false,
 })
 
 //入口函数，打开弹窗
-const open = () => {
+const openFD1 = () => {
     state.forgetDialog1 = true
+}
+const openFD2 = () => {
+    state.forgetDialog2 = true
+}
+
+const FunctionOpenFD2 = () => {
+    openFD2()
 }
 
 defineExpose({  //对外暴露open函数
-    open
+    openFD1
 })
+
+
 
 
 </script>
@@ -70,10 +136,10 @@ defineExpose({  //对外暴露open函数
     flex-direction: column;
 }
 
-.forget-Account-Form,.forget-Email-Form{
+.forget-Account-Form,.forget-Email-Form,.change-PwdConfirm-Form,.change-Pwd-Form{
     height: 60px;
 }
-.forget-input-Account,.forget-input-Email{
+.forget-input-Account,.forget-input-Email ,.change-input-PwdConfirm,.change-input-Pwd{
     --el-input-border: 4px,dashed,#fdfdfd;
     --el-input-focus-border-color:#7300ff;
     height: 100%;
