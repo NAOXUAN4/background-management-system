@@ -31,7 +31,7 @@
                                     </span>
                                 </div>
                                 <div class="login-button-wrapped">
-                                    <el-button type="primary" class="login-button">Login</el-button>
+                                    <el-button type="primary" class="login-button" @click="LoginDef">Login</el-button>
                                 </div>
                             </div>
                         </el-tab-pane>
@@ -53,7 +53,7 @@
                             <!-- 注册界面footer -->
                             <div class="card-footer-wrapped">
                                 <div class="register-button-wrapped">
-                                    <el-button type="primary" class="register-button">Register</el-button>
+                                    <el-button type="primary" class="register-button" @click="RegisterDef">Register</el-button>
                                 </div>
                             </div>
                         </el-tab-pane>
@@ -76,6 +76,8 @@
     import { ref } from 'vue'
     import { reactive } from 'vue'
     import forget_Password from '@/components/forget_Password.vue'
+
+    import {login,register} from '@/api/login'
 
     const activeName = ref('first')  //默认为登录
 
@@ -102,6 +104,21 @@
         forgetPasswordRef.value.openFD1()
     }
     const forgetPasswordRef = ref(null)
+
+
+    //登录api函数
+    const LoginDef = async () => {
+        const res = await login(Loginform)
+        console.log(res)
+        
+    }
+
+    //注册api函数
+    const RegisterDef = async () => {
+        const res = await register(Registerform)
+        console.log(res)
+        
+    }
 
 </script>
 
@@ -257,6 +274,7 @@ html,body{
     color: #5500b7;
     height: 100%;
 }
+
 .forgot-password-wrapped {
     display: flex;
     flex-direction: row;
@@ -276,9 +294,12 @@ html,body{
     font-size: 15px;
     border: 2px dashed #d299ff;
     --el-button-hover-bg-color: #2a005e;
+    --el-button-active-bg-color: #2a005e;
+    --el-button-active-border-color: #00be06;
+    --el-button-hover-border-color: #dedede;
 }
  
-/* -----------------------------------------mian_注册界面 */
+/* -----------------------------------------main_注册界面 */
 .Account-Form-reg,.Password-Form-reg,.ConfirmPassword-Form-reg {
     height: 52px;
 }

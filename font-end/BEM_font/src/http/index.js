@@ -1,7 +1,8 @@
 import axios from "axios";
+axios.defaults.httpsAgent = false;
 
 const instance = axios.create({
-    baseURL: 'https://localhost:3007',
+    baseURL: 'http://localhost:3007',
     timeout : 6000,
     headers:{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'  //请求头
