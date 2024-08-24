@@ -37,7 +37,7 @@ exports.login = (req, res) => {  //rquest，result
         res.send({
             results:results[0],
             status:0,
-            message:'登陆成功',
+            message:'登录成功',
             token:'Bearer '+tokenStr,
         })
 

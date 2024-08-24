@@ -8,8 +8,6 @@
         </el-header>
         <el-main class="main-wrapped">
             <div class="main-container">
-
-                
                 <el-card class="loginRegister-card">
                     <el-tabs v-model='activeName' class="card-tabs":stretch='true'>
                         <!-- 登录界面 -->
@@ -78,6 +76,8 @@
     import forget_Password from '@/components/forget_Password.vue'
 
     import {login,register} from '@/api/login'
+import { ElMessage } from 'element-plus';
+    
 
     const activeName = ref('first')  //默认为登录
 
@@ -98,6 +98,7 @@
         repassword ? : string,
     }
 
+
     //打开忘记密码弹窗函数
     const openForget = () => {
         console.log("Forget Password")
@@ -110,13 +111,57 @@
     const LoginDef = async () => {
         const res = await login(Loginform)
         console.log(res)
-        
+        if(res.data.message == '登录成功'){
+            ElMessage({
+                message: '登录成功',
+                type: 'success',
+            })
+        } else if(res.data.message == '密码错误') 
+        {
+            ElMessage({
+                message: '密码错误！',
+                type : 'error',
+            })
+        }
+        else if(res.data.message == '账号不存在！')
+        {
+            ElMessage({
+                message: '账号不存在！',
+                type : 'error',
+            })
+        }
     }
 
+    
     //注册api函数
     const RegisterDef = async () => {
-        const res = await register(Registerform)
-        console.log(res)
+        if(Registerform.password == Registerform.repassword){
+            const res = await register(Registerform)   //获取后端传回的数据，具体配置在rear-end\router_handle\login.js
+            console.log(res)
+            if(res.data.message == '注册成功'){ 
+                ElMessage({
+                    message: '注册成功',
+                    type: 'success',
+                })
+            } else if(res.data.message == '账号已存在'){ 
+                ElMessage({
+                    type: 'error',
+                    message: '账号已存在！',
+                })
+            } else{
+                ElMessage({
+                    type: 'error',
+                    message: '数据异常',
+                })
+            }
+            
+        } else{
+            ElMessage({
+                type: 'error',
+                message: '两次密码不一致',
+            })
+        }
+        
         
     }
 
