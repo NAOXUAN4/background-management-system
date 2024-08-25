@@ -2,7 +2,7 @@
   <div class="menu_layout">
     <el-container>
       <!-- 侧边 -->
-      <el-aside>
+      <el-aside class="menu-aside">
           <el-menu default-active="home" class="BMS_menu" router>
 
             <!-- title -->
@@ -40,8 +40,8 @@
 
       <!-- 头部 -->
       <el-container>
-        <el-header>Header</el-header>
-        <el-main>
+        <el-header class="header">Header</el-header>
+        <el-main class="main">
           <!-- 在菜单主页面里面渲染子页面实现内容切换 -->
           <router-view></router-view>
 
@@ -58,12 +58,17 @@ import {
 import { ref } from 'vue'
 </script>
 
-<style>
+<style lang="scss">
 html,body {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
+  background-image: url('src\\assets\\background_login.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #app {
@@ -76,6 +81,14 @@ html,body {
   padding: 0px;
 }
 
+
+
+.menu-aside {
+  background-color: #200b9a3d;
+  backdrop-filter: blur(12px);
+
+
+}
 .menu_layout {
   display: flex;
   flex-direction: column;
@@ -84,8 +97,65 @@ html,body {
 }
 
 .BMS_menu {
+  --el-menu-active-color:#00bd1c;  //侧边栏选项字体颜色全局变量（激活）
+  --el-menu-text-color : #7b00ff; //侧边栏选项字体颜色全局变量（未激活）
+  --el-menu-item-font-size: 20px; //侧边栏选项字体大小全局变量
+
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
+  border: #6200ff dashed 0px;
+
+  .el-menu-item {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: #ccdfdf dashed 2px;
+    
+  }
+ 
+  
+  
+
   width: 100%;
+  background-color: #4b0b9a3d;
+  color: aqua;
+
+  .BMS_menu_title {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
 }
+
+// header-----------------------------------
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #7b00ff3f;
+  backdrop-filter: blur(12px);
+}
+
+
+
+
+// main-------------------------------------
+.main {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+
 
 
 

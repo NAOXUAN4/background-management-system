@@ -76,8 +76,12 @@
     import forget_Password from '@/components/forget_Password.vue'
 
     import {login,register} from '@/api/login'
-import { ElMessage } from 'element-plus';
-    
+
+    import { ElMessage } from 'element-plus';
+
+    import { useRouter } from 'vue-router'
+    const router = useRouter()
+
 
     const activeName = ref('first')  //默认为登录
 
@@ -107,15 +111,21 @@ import { ElMessage } from 'element-plus';
     const forgetPasswordRef = ref(null)
 
 
-    //登录api函数
+    //登录api函数----------------------------------
     const LoginDef = async () => {
         const res = await login(Loginform)
+        const { token } = res.data 
+
         console.log(res)
         if(res.data.message == '登录成功'){
             ElMessage({
                 message: '登录成功',
                 type: 'success',
             })
+          
+            localStorage.setItem('token', token)     //把token存入本地存储
+            router.push({path: '/home'})             //router跳转home
+
         } else if(res.data.message == '密码错误') 
         {
             ElMessage({
@@ -132,8 +142,8 @@ import { ElMessage } from 'element-plus';
         }
     }
 
-    
-    //注册api函数
+
+    //注册api函数-----------------------------------
     const RegisterDef = async () => {
         if(Registerform.password == Registerform.repassword){
             const res = await register(Registerform)   //获取后端传回的数据，具体配置在rear-end\router_handle\login.js
@@ -143,6 +153,9 @@ import { ElMessage } from 'element-plus';
                     message: '注册成功',
                     type: 'success',
                 })
+                activeName.value = 'first'  //注册成功后跳转登录界面
+
+
             } else if(res.data.message == '账号已存在'){ 
                 ElMessage({
                     type: 'error',
