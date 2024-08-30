@@ -12,25 +12,33 @@
             
             <!-- home -->
             <el-menu-item index="home">
-              <el-icon><icon-menu /></el-icon>
+              <el-icon>
+                <ChatSquare />
+              </el-icon>
               <span>home</span>
             </el-menu-item>
 
             <!-- 2 -->
             <el-menu-item index="2">
-              <el-icon><icon-menu /></el-icon>
+              <el-icon>
+                <ChatSquare />
+              </el-icon>
               <span>home</span>
             </el-menu-item>
 
             <!-- 3 -->
             <el-menu-item index="3">
-              <el-icon><icon-menu /></el-icon>
+              <el-icon>
+                <ChatSquare />
+              </el-icon>
               <span>home</span>
             </el-menu-item>
 
             <!-- 4 -->
             <el-menu-item index="4">
-              <el-icon><icon-menu /></el-icon>
+              <el-icon>
+                <ChatSquare />
+              </el-icon>
               <span>home</span>
             </el-menu-item>
 
@@ -84,8 +92,9 @@ html,body {
 
 
 .menu-aside {
-  background-color: #200b9a3d;
+  background-color: #200b9a3d;        //侧边栏背景颜色
   backdrop-filter: blur(12px);
+  width: 15%;                          //侧边栏宽度
 
 
 }
@@ -102,6 +111,7 @@ html,body {
   --el-menu-item-font-size: 20px; //侧边栏选项字体大小全局变量
 
   font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
 
   border: #6200ff dashed 0px;
 
@@ -110,6 +120,7 @@ html,body {
     align-items: center;
     border-radius: 5px;
     border: #ccdfdf dashed 2px;
+    font-weight: bold;
     
   }
  
@@ -117,8 +128,10 @@ html,body {
   
 
   width: 100%;
-  background-color: #4b0b9a3d;
-  color: aqua;
+  background-color: #ffffff00;
+  color: rgb(0, 255, 34);
+  font-weight: 400;
+  font-size: 20px;
 
   .BMS_menu_title {
     width: 100%;
@@ -137,7 +150,7 @@ html,body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: #7b00ff3f;
+  background-color: #200b9a3d;
   backdrop-filter: blur(12px);
 }
 
